@@ -10,8 +10,8 @@ export default function GameBoard({ onClickSquare, turns }) {
   const gameBoard = initialGameBoard;
 
   for (const turn of turns) {
-    const {square, player} = turn;
-    const {row, col} = square;
+    const { square, player } = turn;
+    const { row, col } = square;
 
     gameBoard[row][col] = player;
   }
