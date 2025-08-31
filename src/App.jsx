@@ -3,19 +3,23 @@ import Player from './components/Player';
 import GameBoard from './components/GameBoard';
 import Log from './components/Log';
 
+function deriveCurrentPlayer(turns) {
+  let currentPlayer = 'X';
+
+  if (turns.length && turns[0].player === 'X') {
+    currentPlayer = 'O';
+  }
+
+  return currentPlayer;
+}
+
 function App() {
-  const [activePlayer, setActivePlayer] = useState('X');
   const [gameTurns, setGameTurns] = useState([]);
+  let activePlayer = deriveCurrentPlayer(gameTurns);
 
   function onClickSquare(rowIndex, colIndex) {
-    setActivePlayer(currentActivePlayer => currentActivePlayer === 'X' ? 'O' : 'X');
-
     setGameTurns(prevTurns => {
-      let currentPlayer = 'X';
-
-      if (gameTurns.length && gameTurns[0].player === 'X') {
-        currentPlayer = 'O';
-      }
+      let currentPlayer = deriveCurrentPlayer(prevTurns);
 
       const updatedTurns = [
         { square: { row: rowIndex, col: colIndex }, player: currentPlayer },
@@ -40,4 +44,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
