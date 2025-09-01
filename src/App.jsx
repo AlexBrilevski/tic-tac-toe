@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Player from './components/Player';
+import GameOver from './components/GameOver';
 import GameBoard from './components/GameBoard';
 import Log from './components/Log';
 import { WINNING_COMBINATIONS } from './winning-combinations';
@@ -43,6 +44,8 @@ function App() {
     }
   }
 
+  const isDraw = gameTurns.length === 9 && !winner;
+
   function onClickSquare(rowIndex, colIndex) {
     setGameTurns(prevTurns => {
       let currentPlayer = deriveCurrentPlayer(prevTurns);
@@ -63,7 +66,7 @@ function App() {
           <Player name="Palyer 1" symbol="X" isActive={activePlayer === 'X'} />
           <Player name="Palyer 2" symbol="O" isActive={activePlayer === 'O'} />
         </ol>
-        {winner && <p>You won, {winner}!</p>}
+        {(winner || isDraw) && <GameOver winner={winner} />}
         <GameBoard board={gameBoard} onClickSquare={onClickSquare} />
       </div>
       <Log turns={gameTurns} />
